@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "431718799260",
+    "firebase_url": "https://no-rona.firebaseio.com",
+    "project_id": "no-rona",
+    "storage_bucket": "no-rona.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431718799260:android:11f1df21acbfe646229a59",
+        "android_client_info": {
+          "package_name": "com.example.no_rona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431718799260-mipuilj9lfe5b3p6ptsdcsuh3bjgs8g9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM4ZBObNCu7L8endqK_o_SPVe3ZCJmAFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431718799260-mipuilj9lfe5b3p6ptsdcsuh3bjgs8g9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

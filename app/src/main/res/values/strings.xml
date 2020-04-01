@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">NoRona</string>
+
+    <!-- MUTUALS -->
+    <string name="email_et">Email</string>
+    <string name="password_et">Password</string>
+
+    <!-- MAINACTIVITY LAYOUT -->
+    <string name="welcome_login">Log in to NoRona!</string>
+    <string name="login_button">Log in</string>
+    <string name="signup_question"><u>Don\'t have an account? Sign up!</u></string>
+
+    <!-- SIGNUP LAYOUT -->
+    <string name="welcome_signup">Sign up to NoRona!</string>
+    <string name="confirm_password_et">Confirm password</string>
+    <string name="name_et">Name</string>
+    <string name="idno_et">ID No.</string>
+    <string name="address_et">Address</string>
+    <string name="mobile_et">Mobile</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="login_question"><u>Already have an account? Log in!</u></string>
+
+    <!-- ERROR MESSAGES -->
+    <string name="empty_fields">Fields are empty!</string>
+    <string name="missing_email">Please enter an email</string>
+    <string name="missing_password">Please enter a password</string>
+    <string name="missing_password_confirmation">Please confirm your password</string>
+    <string name="mismatching_password_confirmation">Password confirmation mismatches password</string>
+    <string name="missing_name">Please enter your name</string>
+    <string name="missing_idno">Please enter your ID no.</string>
+    <string name="missing_address">Please enter your address</string>
+    <string name="missing_mobile">Please enter your mobile no.</string>
+    <string name="wrong_entries_signup">Error: Check your entries</string>
+    <string name="unsuccessful_login_signup">Error occurred, please try again</string>
+    <string name="wrong_entries_login">Check your e-mail and password</string>
+
+
+    <!-- INTENT KEYS -->
+    <string name="predecessor_key">predecessor</string>
+    <string name="uid_key">uid</string>
+    <string name="username_key">username</string>
+    <string name="current_user_email_key">current_email</string>
+    <string name="current_user_password_key">current_password</string>
+    <string name="result_key">result</string>
+
+    <!-- ASSESSMENT QUESTIONS -->
+    <string name="q1">I have fever (body temp > 39°C).</string>
+    <string name="q2">My throat is dry (no phlegm).</string>
+    <string name="q3">My energy is lacking.</string>
+    <string name="q4">I feel pain in my muscles.</string>
+
+    <!-- INSTRUCTIONS -->
+    <string name="instructions_probably_positive">We\'re sorry to tell you that you may be diagnosed with coronavirus.\n
+    An e-mail was sent to the ministry of health to take care of you.\n
+    For the safety of you and others around you, please follow these instructions:\n
+    1- Stay at home, try to be isolated even from family members.\n
+    2- Make sure to use your own tools.\n
+    3- Use hot water to wash your clothes, don\'t wash it in the same washing machine with others.\n
+    </string>
+    <string name="instructions_probably_negative">You don\'t have coronavirus, PROBABLY..\n
+    But you should know that the virus incubation period is around 14 days, so everyone is a possible carrier.\n
+    Please follow these instructions in order to reduce the risk of being infected:\n
+    1- Stay at home, don\'t go out but for necessities.\n
+    2- Do sports at home.\n
+    3- Use alcohol for surfaces sterilization.\n
+    4- While being outdoors, don\'t put your hands near your face.\n
+    5- Use a mask while being in a crowded place.\n
+    </string>
+    <string name="edit_assessment_btn">Edit assessment answers</string>
+
+</resources>
+
