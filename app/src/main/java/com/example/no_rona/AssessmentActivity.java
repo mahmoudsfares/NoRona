@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 
+import com.example.no_rona.apis.SendMail;
 import com.example.no_rona.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class AssessmentActivity extends AppCompatActivity {
 
@@ -36,6 +38,8 @@ public class AssessmentActivity extends AppCompatActivity {
     double score = 0;
     // Symptoms assessment result (positive = 1, negative = -1, unknown = 0)
     int result = 0;
+    // Check if an email was sent before or not
+    boolean isMailSent;
     Button submitResults;
     // String to hold predecessor class name to determine behavior when back is pressed (MainActivity or UserDataActivity)
     String authUid;
@@ -105,6 +109,12 @@ public class AssessmentActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         // Push the data collected in the assessment after the user clicks the submit button
                         addUserData();
+                        if(result == 1 && !isMailSent){
+                            sendResults();
+                            isMailSent = true;
+                        }
+                        currentUser.setMailSent(isMailSent);
+                        mDbReference.setValue(currentUser);
                         // Go to the instructions
                         Intent toInstructionsActivity = new Intent(AssessmentActivity.this, InstructionsActivity.class);
                         putIntentExtras(toInstructionsActivity, authUid);
@@ -160,7 +170,6 @@ public class AssessmentActivity extends AppCompatActivity {
         currentUser.setAnswers(answers);
         currentUser.setScore(score);
         currentUser.setResult(result);
-        mDbReference.setValue(currentUser);
     }
 
     private void calculateResults(){
@@ -192,5 +201,15 @@ public class AssessmentActivity extends AppCompatActivity {
     private void putIntentExtras(Intent intent, String uid){
         intent.putExtra(getString(R.string.predecessor_key), AssessmentActivity.class.getName());
         intent.putExtra(getString(R.string.uid_key), uid);
+    }
+
+    private void sendResults(){
+        String email = "mahmoudsaeed1996@gmail.com";
+        String subject = "CORONAVIRUS CASE";
+        String message = "This user probably has COVID-19!! \n" + currentUser.toString();
+        //Creating SendMail object
+        SendMail sm = new SendMail(this, email, subject, message);
+        //Executing sendmail to send email
+        sm.execute();
     }
 }

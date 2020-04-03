@@ -19,6 +19,7 @@
     <string name="mobile_et">Mobile</string>
     <string name="signup_button">Sign Up</string>
     <string name="login_question"><u>Already have an account? Log in!</u></string>
+    <string name="successful_signup">Saved successfully</string>
 
     <!-- ERROR MESSAGES -->
     <string name="empty_fields">Fields are empty!</string>
@@ -32,6 +33,7 @@
     <string name="missing_mobile">Please enter your mobile no.</string>
     <string name="wrong_entries_signup">Error: Check your entries</string>
     <string name="unsuccessful_login_signup">Error occurred, please try again</string>
+    <string name="unsuccessful_authorization">Email unauthorized, please check emailed code</string>
     <string name="wrong_entries_login">Check your e-mail and password</string>
 
 

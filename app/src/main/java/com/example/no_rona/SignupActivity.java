@@ -1,17 +1,23 @@
 package com.example.no_rona;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.no_rona.apis.SendMail;
 import com.example.no_rona.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
+
+import java.util.Random;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -37,6 +45,8 @@ public class SignupActivity extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth;
     // Authorization uid that will be used to save data in the DB
     String authUid;
+    // Newly signed up email verification number
+    int verificationRandomNumber;
     // Firebase reference for the app database
     DatabaseReference mDbReference;
 
@@ -100,31 +110,10 @@ public class SignupActivity extends AppCompatActivity {
                         (!name.isEmpty()) &&
                         (!idno.isEmpty()) &&
                         (!address.isEmpty()) &&
-                        (!mobile.isEmpty())){
+                        (!mobile.isEmpty())) {
 
-                    // Show ProgressBar, hide the rest of the layout
-                    showProgress();
-                    mFirebaseAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            // Invalid fields
-                            if(!task.isSuccessful()){
-                                Toast.makeText(SignupActivity.this,
-                                        R.string.wrong_entries_signup,Toast.LENGTH_SHORT).show();
-                                showUi();
-                            }
-                            else {
-                                authUid = mFirebaseAuth.getUid();
-                                // Push new user data to the DB
-                                pushUser(authUid, email, password, name, idno, address, mobile);
-                                Intent toAssessmentActivity = new Intent(SignupActivity.this, LoginActivity.class);
-                                putIntentExtras(toAssessmentActivity, authUid);
-                                startActivity(toAssessmentActivity);
-                                showUi();
-                            }
-                        }
-                    });
+                    sendVerificationCode(email);
+                    verifyEmail();
                 }
                 else
                     Toast.makeText(SignupActivity.this, R.string.unsuccessful_login_signup, Toast.LENGTH_SHORT).show();
@@ -182,4 +171,74 @@ public class SignupActivity extends AppCompatActivity {
         intent.putExtra(getString(R.string.uid_key),uid);
     }
 
+    private void sendVerificationCode(String email){
+        String subject = "Sign-up email verification";
+        verificationRandomNumber = new Random().nextInt(9000) + 1000;
+        String message = "Your verification code is: " + verificationRandomNumber;
+        //Creating SendMail object
+        SendMail sm = new SendMail(this, email, subject, message);
+        //Executing sendmail to send email
+        sm.execute();
+    }
+
+    private void verifyEmail(){
+
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.alert_dialog_verification, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        // set dialog message
+        alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                // If the code entered by user is correct, start authentication
+                if(verificationRandomNumber == Integer.parseInt(userInput.getText().toString()))
+                    authenticate();
+                else
+                    Toast.makeText(SignupActivity.this, R.string.unsuccessful_authorization, Toast.LENGTH_SHORT).show();
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int id) {
+                dialog.cancel();
+            }
+        });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    private void authenticate(){
+
+        // Show ProgressBar, hide the rest of the layout
+        showProgress();
+        mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                // Invalid fields
+                if (!task.isSuccessful()) {
+                    Toast.makeText(SignupActivity.this, R.string.wrong_entries_signup, Toast.LENGTH_SHORT).show();
+                    showUi();
+                }
+                else {
+                    authUid = mFirebaseAuth.getUid();
+                    // Push new user data to the DB
+                    pushUser(authUid, email, password, name, idno, address, mobile);
+                    Toast.makeText(SignupActivity.this, R.string.successful_signup, Toast.LENGTH_SHORT).show();
+                    Intent toAssessmentActivity = new Intent(SignupActivity.this, LoginActivity.class);
+                    putIntentExtras(toAssessmentActivity, authUid);
+                    startActivity(toAssessmentActivity);
+                    showUi();
+                }
+            }
+        });
+    }
 }

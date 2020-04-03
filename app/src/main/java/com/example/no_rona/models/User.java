@@ -14,6 +14,7 @@ public class User {
     private List<Boolean> answers;
     private double score;
     private int result;
+    private boolean isMailSent;
 
     /*
     This constructor and getAuthUid() method are only for saving SharedPreference
@@ -85,5 +86,25 @@ public class User {
 
     public void setResult(int result) {
         this.result = result;
+    }
+
+    public boolean isMailSent() {
+        return isMailSent;
+    }
+
+    public void setMailSent(boolean mailSent) {
+        isMailSent = mailSent;
+    }
+
+    public String toString(){
+        return "\n" +
+                "Name: " + getName() + "\n" +
+                "Address: " + getAddress() + "\n" +
+                "ID: " + getIdno() + "\n" +
+                "Mobile: " + getMobile() + "\n" +
+                "Fever? " + getAnswers().get(0) + "\n" +
+                "Drought? " + getAnswers().get(1) + "\n" +
+                "Energy lacking? " + getAnswers().get(2) + "\n" +
+                "Pain in muscles? " + getAnswers().get(3);
     }
 }
