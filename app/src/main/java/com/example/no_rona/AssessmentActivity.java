@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.no_rona.apis.SendMail;
 import com.example.no_rona.models.User;
@@ -31,6 +32,8 @@ public class AssessmentActivity extends AppCompatActivity {
     ConstraintLayout ui;
     // Loading spinner layout
     RelativeLayout spinner;
+    // Welcome text with username
+    TextView welcomeTv;
     // Assessment questions
     CheckBox q1, q2, q3, q4;
     List<Boolean> answers = new ArrayList<>();
@@ -76,6 +79,7 @@ public class AssessmentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 currentUser = dataSnapshot.getValue(User.class);
+                welcomeTv.setText("Welcome, " + getUserFirstName(currentUser.getName()) + ".");
                 // If the user have had an assessment before:
                 if(currentUser.getResult() != 0){
                     answers = currentUser.getAnswers();
@@ -123,7 +127,7 @@ public class AssessmentActivity extends AppCompatActivity {
                 });
 
                 // Sign out
-                signoutBtn = findViewById(R.id.signout_button);
+                signoutBtn = findViewById(R.id.assessment_signout_button);
                 signoutBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -142,6 +146,7 @@ public class AssessmentActivity extends AppCompatActivity {
     private void findUiComponentsIds(){
         spinner = findViewById(R.id.assessment_progressbar);
         ui = findViewById(R.id.assessment_ui);
+        welcomeTv = findViewById(R.id.assessment_welcome);
         q1 = findViewById(R.id.q1);
         q2 = findViewById(R.id.q2);
         q3 = findViewById(R.id.q3);
@@ -211,5 +216,12 @@ public class AssessmentActivity extends AppCompatActivity {
         SendMail sm = new SendMail(this, email, subject, message);
         //Executing sendmail to send email
         sm.execute();
+    }
+
+    private String getUserFirstName(String username){
+        int whiteSpacePosition = username.indexOf(" ");
+        if(whiteSpacePosition == -1)
+            return username;
+        return username.substring(0, whiteSpacePosition);
     }
 }

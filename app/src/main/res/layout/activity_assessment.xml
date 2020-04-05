@@ -16,8 +16,20 @@
         app:layout_constraintTop_toTopOf="parent"
         >
 
+        <TextView
+            android:id="@+id/assessment_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+            app:layout_constraintEnd_toStartOf="@+id/assessment_signout_button"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <Button
-            android:id="@+id/signout_button"
+            android:id="@+id/assessment_signout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="log out"
@@ -46,6 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"></View>
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,18 +76,29 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="16dp" />
 
+                <TextView
+                    android:id="@+id/symptoms_question_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/symptoms_questions_tv"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <CheckBox
                     android:id="@+id/q1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="30dp"
                     android:text="@string/q1"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/symptoms_question_tv" />
 
                 <CheckBox
                     android:id="@+id/q2"
@@ -128,6 +152,8 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout

@@ -6,7 +6,8 @@
     <string name="password_et">Password</string>
 
     <!-- MAINACTIVITY LAYOUT -->
-    <string name="welcome_login">Log in to NoRona!</string>
+    <string name="welcome_login">NoRona</string>
+    <string name="description_login">Towards a coronavirus-free world!</string>
     <string name="login_button">Log in</string>
     <string name="signup_question"><u>Don\'t have an account? Sign up!</u></string>
 
@@ -20,6 +21,7 @@
     <string name="signup_button">Sign Up</string>
     <string name="login_question"><u>Already have an account? Log in!</u></string>
     <string name="successful_signup">Saved successfully</string>
+    <string name="verification_dialog">E-mailed verification code:</string>
 
     <!-- ERROR MESSAGES -->
     <string name="empty_fields">Fields are empty!</string>
@@ -45,7 +47,8 @@
     <string name="current_user_password_key">current_password</string>
     <string name="result_key">result</string>
 
-    <!-- ASSESSMENT QUESTIONS -->
+    <!-- ASSESSMENT Layout -->
+    <string name="symptoms_questions_tv">Do you have any of these symptoms?</string>
     <string name="q1">I have fever (body temp > 39°C).</string>
     <string name="q2">My throat is dry (no phlegm).</string>
     <string name="q3">My energy is lacking.</string>

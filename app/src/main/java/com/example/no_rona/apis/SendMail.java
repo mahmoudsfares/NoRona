@@ -4,7 +4,6 @@ package com.example.no_rona.apis;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -13,6 +12,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class SendMail extends AsyncTask<Void,Void,Void> {
 
@@ -40,20 +41,16 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //Showing progress dialog while sending email
-        //progressDialog = ProgressDialog.show(context,"Sending message","Please wait...",false,false);
-        Toast.makeText(context,"Sending email...",Toast.LENGTH_SHORT);
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        //Showing a success message
-        Toast.makeText(context,"Message Sent",Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected Void doInBackground(Void... params) {
+
         //Creating properties
         Properties props = new Properties();
 

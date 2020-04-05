@@ -27,6 +27,8 @@ public class InstructionsActivity extends AppCompatActivity {
     ConstraintLayout ui;
     // ProgressBar for when the data is still loading
     RelativeLayout spinner;
+    // Welcome text with username
+    TextView welcomeTv;
     // Depends on the result
     TextView instructionsTv;
     int result;
@@ -65,6 +67,7 @@ public class InstructionsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 currentUser = dataSnapshot.getValue(User.class);
                 result = currentUser.getResult();
+                welcomeTv.setText("Welcome, " + getUserFirstName(currentUser.getName()) + ".");
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError){}
@@ -88,7 +91,7 @@ public class InstructionsActivity extends AppCompatActivity {
         }, 2000);
 
         // Sign out
-        signoutBtn = findViewById(R.id.decision_signout_button);
+        signoutBtn = findViewById(R.id.instructions_signout_button);
         signoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +118,7 @@ public class InstructionsActivity extends AppCompatActivity {
     private void findUiComponentsIds(){
         ui = findViewById(R.id.instructions_ui);
         spinner = findViewById(R.id.instructions_progressbar);
+        welcomeTv = findViewById(R.id.instructions_welcome);
         instructionsTv = findViewById(R.id.instructions);
     }
 
@@ -126,6 +130,13 @@ public class InstructionsActivity extends AppCompatActivity {
     private void showUi(){
         spinner.setVisibility(View.INVISIBLE);
         ui.setVisibility(View.VISIBLE);
+    }
+
+    private String getUserFirstName(String username){
+        int whiteSpacePosition = username.indexOf(" ");
+        if(whiteSpacePosition == -1)
+            return username;
+        return username.substring(0, whiteSpacePosition);
     }
 
     private void putIntentExtras(Intent intent, String uid){
