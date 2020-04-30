@@ -55,7 +55,7 @@ public class AssessmentActivity extends AppCompatActivity {
     public void onBackPressed() {
         // clear the activity stack to close the app when back pressed in the MainActivity
         Intent a = new Intent(Intent.ACTION_MAIN);
-        //TODO: we want to go back to whatever screen was active before we started our app, not specifically home screen
+        //TODO: we want to go back to whichever screen was active before we started our app, not specifically home screen
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
@@ -209,7 +209,8 @@ public class AssessmentActivity extends AppCompatActivity {
     }
 
     private void sendResults(){
-        String email = "mahmoudsaeed1996@gmail.com";
+        // TODO: replace the dummy email
+        String email = "dummy_email@gmail.com";
         String subject = "CORONAVIRUS CASE";
         String message = "This user probably has COVID-19!! \n" + currentUser.toString();
         //Creating SendMail object

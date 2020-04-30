@@ -43,7 +43,7 @@ public class InstructionsActivity extends AppCompatActivity {
     public void onBackPressed() {
         // clear the activity stack to close the app when back pressed in the MainActivity
         Intent a = new Intent(Intent.ACTION_MAIN);
-        //TODO: we want to go back to whatever screen was sctive before we started our app, not specifically home screen
+        //TODO: we want to go back to whichever screen was active before we started our app, not specifically home screen
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
